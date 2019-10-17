@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+ul{
+    display: flex;
+    list-style-type: none;
+    justify-content: space-between;
+    color:dodgerblue;
+}
+#userList > .parent{
+    display: flex;
+ 
+}
+
+.parent  {
+   display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid  black;
+  
+}
+.parent > div {
+    align-items: flex-start;
+    padding: 10px 0;
+
+}
+</style>
+<body>
+    <h1>Acme Employee Lister</h1>
+    <div id="pager">
+        <ul>
+            <li>First</li>
+            <li>counter(1)</li>
+            <li>Next</li>
+            <li>Last</li>
+        </ul>
+    </div>
+    <div id="userList">
+    
+    </div>
+</body>
+
+<script>
+const userList = document.getElementById('userList');
+const data = fetch('https://acme-users-api-rev.herokuapp.com/api/users');
+data.then((acmeData)=> {
+    return acmeData.json();
+}).then((data)=>{
+    getData(data);
+}).catch((err)=>{  
+    console.log(err)
+
+})
+
+function getData(objData){
+        let stringOfObjects =  objData.users.map(element => `<div class="parent"> <div>${element.firstName}</div> <div>${element.lastName}</div> <div>${element.email}</div> <div>${element.title}</div> </div>`).join(' ')
+    
+        userList.innerHTML = stringOfObjects
+        
+        console.log(newArr)
+}
+
+</script>
+</html>
+
+
+<!-- // return {
+    //     firstName: element.firstName,
+    //     lastName: element.lastName,
+    //     email: element.email,
+    //     title: element.title
+    // } -->
